@@ -1,39 +1,40 @@
-import { Component, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HelloActions } from '../helloActions';
-import { GoogleButton } from '../component/googleButton/';
+import {Component, Inject, OnInit, OnDestroy} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {HomeActions} from "./action";
+import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'home',
-  template: require('./home.component.html'),
-  styles: [require('./home.component.scss')],
-  directives : [GoogleButton]
+    selector: 'home',
+    template: require('./home.component.html'),
+    styles: [require('./home.component.scss')],
+    providers: [HomeActions]
 })
-export class Home {
-  private unsubscribe;
-  private routerSub;
-  private cpt=0;
-  private code:string;
+export class Home implements OnInit, OnDestroy {
+    private appStoreSub: any;
+    private routerSub: Subscription;
+    private cpt = 0;
+    private code: string;
 
-  constructor(@Inject('AppStore') private appStore, private helloActions: HelloActions, private route:ActivatedRoute, private router:Router){
-    this.unsubscribe = this.appStore.subscribe(()=> {
-      let state = this.appStore.getState();
-      this.cpt = state.cpt;
-    });
-  }
+    constructor(@Inject('AppStore') private appStore: any, private actions: HomeActions, private route: ActivatedRoute, private router: Router) {
 
-  private ngOnInit() {
-    this.routerSub = this.router.routerState.queryParams.subscribe(queryParams => {
-      this.code = queryParams["code"];
-    });
-  }
+      this.appStoreSub = this.appStore.subscribe(() => {
+            let state = this.appStore.getState();
+            this.cpt = state.home.cpt;
+        });
+    }
 
-  private ngOnDestroy(){
-    this.unsubscribe();
-    this.routerSub();
-  }
+    ngOnInit() {
+        /*this.routerSub = this.router.routerState.queryParams.subscribe(queryParams => {
+         this.code = queryParams["code"];
+         });*/
+    }
 
-  private clickButton(){
-    this.appStore.dispatch(this.helloActions.sayHello());
-  }
+    ngOnDestroy() {
+        this.appStoreSub();
+        /*this.routerSub();*/
+    }
+
+    private clickButton() {
+        this.appStore.dispatch(this.actions.sayHello());
+    }
 }

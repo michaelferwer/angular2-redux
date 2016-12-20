@@ -1,19 +1,42 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
+// Pages
+import {AppComponent} from "./app.component";
+import {Home} from "./home";
 // Components
-import { AppComponent } from './app.component';
-import { Menu } from './menu';
-import { Navbar } from './navbar';
+import {Menu} from "./component/menu";
+import {Navbar} from "./component/navbar";
+// Routing
+import {AppRoutingModule} from "./app.routes";
+
+import {createStore} from 'redux';
+
+import rootReducer from './reducer';
+import * as actions from './actions';
+
+const appStore = createStore(rootReducer);
+
+const APP_PROVIDERS = [
+    {provide : 'AppStore', useValue: appStore},
+    {provide: 'Toto', useValue: 'toto'},
+    {provide: 'Actions', useValue: actions}
+];
 
 @NgModule({
     imports: [
-        BrowserModule
+        BrowserModule,
+        AppRoutingModule
     ],
     declarations: [
         AppComponent,
+        Home,
         Menu,
         Navbar
     ],
-    bootstrap: [ AppComponent ]
+    providers : [
+        ...APP_PROVIDERS
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

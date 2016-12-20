@@ -9,5 +9,5 @@ if (process.env.ENV === 'dev') {
 }
 
 platformBrowserDynamic()
-    .bootstrapModule(AppModule, [])
+    .bootstrapModule(AppModule)
     .catch(err => console.error(err));

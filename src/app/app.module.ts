@@ -1,5 +1,10 @@
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
+// material
+/*import { MaterialModule } from '@angular/material';
+MaterialModule.forRoot()*/
+import 'material-design-lite/material.min.css'
+import 'material-design-lite/material.min.js';
 // Pages
 import {AppComponent} from "./app.component";
 import {Home} from "./home";
@@ -25,7 +30,8 @@ const APP_PROVIDERS = [
 @NgModule({
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+
     ],
     declarations: [
         AppComponent,

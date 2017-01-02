@@ -6,10 +6,10 @@ import { Component, Inject, Input } from '@angular/core';
   styles: [require('./googleButton.component.scss')]
 })
 export class GoogleButton {
-  private unsubscribe;
-  @Input() code;
+  private unsubscribe:any;
+  @Input() code:String;
 
-  constructor(@Inject('AppStore') private appStore){
+  constructor(@Inject('AppStore') private appStore: any){
     this.unsubscribe = this.appStore.subscribe(()=> {
       let state = this.appStore.getState();
     });

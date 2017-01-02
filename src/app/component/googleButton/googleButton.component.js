@@ -30,7 +30,7 @@ var GoogleButton = (function () {
 }());
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], GoogleButton.prototype, "code", void 0);
 GoogleButton = __decorate([
     core_1.Component({

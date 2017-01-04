@@ -4,11 +4,13 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 //const autoprefixer = require('autoprefixer');
 
+const APP_DIRECTORY = 'src';
+
 module.exports = {
   entry: {
-    'polyfills': './client/polyfills.ts',
-    'vendor': './client/vendor.ts',
-    'app': './client/main.ts'
+    'polyfills': './'+APP_DIRECTORY+'/polyfills.ts',
+    'vendor': './'+APP_DIRECTORY+'/vendor.ts',
+    'app': './'+APP_DIRECTORY+'/main.ts'
   },
 
   resolve: {
@@ -31,22 +33,22 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: helpers.root('client', 'app'),
+        exclude: helpers.root(APP_DIRECTORY, 'app'),
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
       },
       {
         test: /\.css$/,
-        include: helpers.root('client', 'app'),
+        include: helpers.root(APP_DIRECTORY, 'app'),
         loader: 'raw'
       },
       {
         test: /\.scss$/,
-        exclude: helpers.root('client', 'app'),
+        exclude: helpers.root(APP_DIRECTORY, 'app'),
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap')
       },
       {
         test: /\.scss$/,
-        include: helpers.root('client', 'app'),
+        include: helpers.root(APP_DIRECTORY, 'app'),
         loaders: ['raw', 'sass?sourceMap']
       }
 
@@ -59,7 +61,7 @@ module.exports = {
     }),
 
     new HtmlWebpackPlugin({
-      template: 'client/index.html'
+      template: APP_DIRECTORY+'/index.html'
     })
   ]
 };

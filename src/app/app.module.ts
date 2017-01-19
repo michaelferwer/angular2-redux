@@ -13,13 +13,20 @@ import {Menu} from "./component/menu";
 import {Navbar} from "./component/navbar";
 // Routing
 import {AppRoutingModule} from "./app.routes";
-
-import {createStore} from 'redux';
+// Redux
+import thunkMiddleware from 'redux-thunk';
+//import createLogger from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
 
 import rootReducer from './reducer';
 import * as actions from './actions';
 
-const appStore = createStore(rootReducer);
+//const loggerMiddleware = createLogger();
+const createStoreWithMiddleware = applyMiddleware(
+    thunkMiddleware
+    //loggerMiddleware
+)(createStore);
+let appStore = createStoreWithMiddleware(rootReducer);
 
 const APP_PROVIDERS = [
     {provide : 'AppStore', useValue: appStore},

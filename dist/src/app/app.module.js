@@ -10,9 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
-// material
-/*import { MaterialModule } from '@angular/material';
-MaterialModule.forRoot()*/
+// Material
 require("material-design-lite/material.min.css");
 require("material-design-lite/material.min.js");
 // Pages
@@ -23,15 +21,10 @@ var menu_1 = require("./component/menu");
 var navbar_1 = require("./component/navbar");
 // Routing
 var app_routes_1 = require("./app.routes");
-// Redux
-var redux_thunk_1 = require("redux-thunk");
-//import createLogger from 'redux-logger';
 var redux_1 = require("redux");
 var reducer_1 = require("./reducer");
 var actions = require("./actions");
-//const loggerMiddleware = createLogger();
-var createStoreWithMiddleware = redux_1.applyMiddleware(redux_thunk_1.default)(redux_1.createStore);
-var appStore = createStoreWithMiddleware(reducer_1.default);
+var appStore = redux_1.createStore(reducer_1.default);
 var APP_PROVIDERS = [
     { provide: 'AppStore', useValue: appStore },
     { provide: 'Toto', useValue: 'toto' },

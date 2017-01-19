@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var action_1 = require("./action");
-var home_service_1 = require("./home.service");
 var Home = (function () {
     function Home(appStore, actions, route, router) {
         var _this = this;
@@ -38,7 +37,7 @@ var Home = (function () {
         /*this.routerSub();*/
     };
     Home.prototype.clickButton = function () {
-        this.appStore.dispatch(this.actions.fetchData());
+        this.appStore.dispatch(this.actions.sayHello());
     };
     return Home;
 }());
@@ -47,7 +46,7 @@ Home = __decorate([
         selector: 'home',
         template: require('./home.component.html'),
         styles: [require('./home.component.scss')],
-        providers: [action_1.HomeActions, home_service_1.HomeService]
+        providers: [action_1.HomeActions]
     }),
     __param(0, core_1.Inject('AppStore')),
     __metadata("design:paramtypes", [Object, action_1.HomeActions, router_1.ActivatedRoute, router_1.Router])

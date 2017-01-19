@@ -1,13 +1,14 @@
 import {Component, Inject, OnInit, OnDestroy} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HomeActions} from "./action";
+import {HomeService} from "./home.service";
 import {Subscription} from "rxjs";
 
 @Component({
     selector: 'home',
     template: require('./home.component.html'),
     styles: [require('./home.component.scss')],
-    providers: [HomeActions]
+    providers: [HomeActions, HomeService]
 })
 export class Home implements OnInit, OnDestroy {
     private appStoreSub: any;
@@ -17,7 +18,7 @@ export class Home implements OnInit, OnDestroy {
 
     constructor(@Inject('AppStore') private appStore: any, private actions: HomeActions, private route: ActivatedRoute, private router: Router) {
 
-      this.appStoreSub = this.appStore.subscribe(() => {
+        this.appStoreSub = this.appStore.subscribe(() => {
             let state = this.appStore.getState();
             this.cpt = state.home.cpt;
         });
@@ -35,6 +36,6 @@ export class Home implements OnInit, OnDestroy {
     }
 
     private clickButton() {
-        this.appStore.dispatch(this.actions.sayHello());
+        this.appStore.dispatch(this.actions.fetchData());
     }
 }
